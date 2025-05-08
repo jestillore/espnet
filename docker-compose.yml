@@ -13,6 +13,7 @@ services:
       - ./espnet2:/espnet/espnet2
       - ./utils:/espnet/utils
       - ./test:/espnet/test
+      - ./tools:/espnet/tools
       - /dev/shm:/dev/shm
     working_dir: /espnet
     command: /bin/bash
