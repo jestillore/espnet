@@ -1,6 +1,6 @@
 services:
   espnet:
-    image: espnet/espnet:gpu-latest
+    build: .
     container_name: espnet
     runtime: nvidia
     environment:
