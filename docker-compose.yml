@@ -1,0 +1,17 @@
+services:
+  espnet:
+    image: espnet/espnet:gpu-latest
+    container_name: espnet
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./egs:/espnet/egs
+      - ./egs2:/espnet/egs2
+      - ./espnet:/espnet/espnet
+      - ./espnet2:/espnet/espnet2
+      - ./utils:/espnet/utils
+      - ./test:/espnet/test
+      - /dev/shm:/dev/shm
+    working_dir: /espnet
+    command: bash
