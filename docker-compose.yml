@@ -5,6 +5,7 @@ services:
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     volumes:
       - ./egs:/espnet/egs
       - ./egs2:/espnet/egs2
@@ -14,4 +15,5 @@ services:
       - ./test:/espnet/test
       - /dev/shm:/dev/shm
     working_dir: /espnet
-    command: bash
+    command: /bin/bash
+    tty: true
