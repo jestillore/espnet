@@ -74,8 +74,8 @@ if [ ! "${docker_gpu}" == "-1" ]; then
 
     # After search for your cuda version, if the variable docker_cuda is empty the program will raise an error
     if [ -z "${docker_cuda}" ]; then
-        echo "CUDA was not found in your system. Use CPU image or install NVIDIA-DOCKER, CUDA for GPU image."
-        exit 1
+        echo "Warning: CUDA not found on host. Assuming CUDA is available inside the Docker image."
+        # exit 1
     fi
         from_tag="gpu"
 fi
