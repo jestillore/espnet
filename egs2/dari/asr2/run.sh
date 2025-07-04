@@ -6,8 +6,8 @@ set -eou pipefail
     --asr_config conf/train_asr_transformer.yaml \
     --inference_config conf/decode_asr.yaml \
     --lm_config conf/train_lm.yaml \
-    --train_set data/train \
-    --valid_set data/valid \
-    --test_sets "data/valid data/test" \
-    --lm_train_text "data/train/text" \
+    --train_set train \
+    --valid_set valid \
+    --test_sets "valid test" \
+    --lm_train_text "train/text" \
     --speed_perturb_factors "0.9 1.0 1.1" "$@"
