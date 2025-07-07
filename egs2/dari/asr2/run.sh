@@ -14,5 +14,5 @@ set -eou pipefail
     --train_set train \
     --valid_set valid \
     --test_sets "valid test" \
-    --lm_train_text "train/text" \
+    --lm_train_text "data/train/text" \
     --speed_perturb_factors "0.9 1.0 1.1" "$@"
