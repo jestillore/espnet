@@ -1,0 +1,64 @@
+# Batching strategy
+batch_type: numel
+batch_bins: 250000  # Adjusted for T4 stability
+accum_grad: 1       # Use larger batch instead of accumulation
+
+# Training loop
+max_epoch: 50       # Small dataset = fast convergence
+patience: 5         # Early stop if no improvement
+
+# Model architecture
+encoder: transformer
+encoder_conf:
+    output_size: 256              # Reduce size to fit GPU
+    attention_heads: 4
+    linear_units: 1024
+    num_blocks: 6                # 6-layer encoder
+    dropout_rate: 0.1
+    positional_dropout_rate: 0.1
+    attention_dropout_rate: 0.0
+    input_layer: conv2d
+    normalize_before: true
+
+decoder: transformer
+decoder_conf:
+    attention_heads: 4
+    linear_units: 1024
+    num_blocks: 3                # 3-layer decoder
+    dropout_rate: 0.1
+    positional_dropout_rate: 0.1
+    self_attention_dropout_rate: 0.0
+    src_attention_dropout_rate: 0.0
+
+# Loss
+model_conf:
+    ctc_weight: 0.3
+    lsm_weight: 0.1
+    length_normalized_loss: false
+
+# Optimizer
+optim: adam
+optim_conf:
+    lr: 0.002
+scheduler: warmuplr
+scheduler_conf:
+    warmup_steps: 500            # Fast warmup
+
+# SpecAug
+specaug: specaug
+specaug_conf:
+    apply_time_warp: false       # skip to reduce overhead
+    apply_freq_mask: true
+    freq_mask_width_range: [0, 15]
+    num_freq_mask: 1
+    apply_time_mask: true
+    time_mask_width_range: [0, 20]
+    num_time_mask: 1
+
+# Mixed precision
+use_amp: true
+
+# Best model selection
+best_model_criterion:
+  - [valid, acc, max]
+keep_nbest_models: 3

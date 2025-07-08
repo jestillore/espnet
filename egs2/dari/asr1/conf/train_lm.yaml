@@ -1,0 +1,29 @@
+use_amp: true  # Mixed precision for memory efficiency
+
+lm: transformer
+lm_conf:
+    pos_enc: null
+    embed_unit: 64         # Lowered for smaller model
+    att_unit: 256
+    head: 4
+    unit: 1024
+    layer: 2               # 2-layer Transformer LM
+    dropout_rate: 0.1
+
+# Optimization
+grad_clip: 5.0
+batch_type: numel
+batch_bins: 200000        # ~0.2M features per batch
+accum_grad: 1             # No accumulation needed for small LM
+max_epoch: 20             # Should converge faster
+
+optim: adam
+optim_conf:
+    lr: 0.002              # Slightly reduced for stability
+scheduler: warmuplr
+scheduler_conf:
+    warmup_steps: 1000     # Faster ramp-up
+
+best_model_criterion:
+  - [valid, loss, min]
+keep_nbest_models: 3

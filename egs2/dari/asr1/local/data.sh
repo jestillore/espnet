@@ -1,8 +1,16 @@
 #!/bin/bash
 
+exit 0 # disable for now because we will manually supply the dataset
+
 # Variables
 S3_URI="s3://dt-sandbox-eu-north-1-ec2-ml-trainer-ec2-ml-trainer/dari/"
 DEST_DIR="data/"
+
+# Check if the directory already exists
+if [ -d "$DEST_DIR" ]; then
+  echo "Directory '$DEST_DIR' already exists. Skipping download."
+  exit 0
+fi
 
 # Ensure AWS CLI is installed
 if ! command -v aws &> /dev/null; then
