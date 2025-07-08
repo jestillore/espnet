@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 set -eou pipefail
 
-# Generate spk2utt if missing
-[ ! -f data/train/spk2utt ] && utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt
-[ ! -f data/test/spk2utt ] && utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt
-[ ! -f data/valid/spk2utt ] && utils/utt2spk_to_spk2utt.pl data/valid/utt2spk > data/valid/spk2utt
-
 ./asr.sh \
     --lang dari \
     --stop_stage 13 \

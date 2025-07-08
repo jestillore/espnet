@@ -25,4 +25,9 @@ fi
 mkdir -p $DEST_DIR
 cp -r "$SRC_DIR"/* "$DEST_DIR/"
 
+# Generate spk2utt if missing
+[ ! -f data/train/spk2utt ] && utils/utt2spk_to_spk2utt.pl data/train/utt2spk > data/train/spk2utt
+[ ! -f data/test/spk2utt ] && utils/utt2spk_to_spk2utt.pl data/test/utt2spk > data/test/spk2utt
+[ ! -f data/valid/spk2utt ] && utils/utt2spk_to_spk2utt.pl data/valid/utt2spk > data/valid/spk2utt
+
 echo "Dataset for $LANGUAGE/$TASK copied successfully to $DEST_DIR"
