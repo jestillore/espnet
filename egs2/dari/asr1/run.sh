@@ -8,7 +8,6 @@ set -eou pipefail
 
 ./asr.sh \
     --lang dari \
-    --stage 2 \
     --stop_stage 13 \
     --asr_config conf/train_asr_transformer.yaml \
     --inference_config conf/decode_asr.yaml \
