@@ -11,5 +11,5 @@ set -eou pipefail
     --train_set train \
     --valid_set valid \
     --test_sets "test" \
-    --nbpe 1000 \
+    --nbpe 2000 \
     --lm_train_text "data/train/text" "$@"
