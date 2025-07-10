@@ -3,6 +3,7 @@ set -eou pipefail
 
 ./asr.sh \
     --lang dari \
+    --ngpu 8 \
     --stop_stage 13 \
     --asr_config conf/train_asr_transformer.yaml \
     --inference_config conf/decode_asr.yaml \

@@ -1,19 +1,19 @@
 # Batching strategy
 batch_type: numel
-batch_bins: 2000000         # Use GPU memory well (~2M features)
-accum_grad: 2               # Effective batch size ×2
+batch_bins: 250000  # Adjusted for T4 stability
+accum_grad: 1       # Use larger batch instead of accumulation
 
 # Training loop
-max_epoch: 100              # Longer training for larger dataset
-patience: 10                # More room for improvements
+max_epoch: 50       # Small dataset = fast convergence
+patience: 5         # Early stop if no improvement
 
 # Model architecture
 encoder: transformer
 encoder_conf:
-    output_size: 512
-    attention_heads: 8
-    linear_units: 2048
-    num_blocks: 12
+    output_size: 256              # Reduce size to fit GPU
+    attention_heads: 4
+    linear_units: 1024
+    num_blocks: 6                # 6-layer encoder
     dropout_rate: 0.1
     positional_dropout_rate: 0.1
     attention_dropout_rate: 0.0
@@ -22,9 +22,9 @@ encoder_conf:
 
 decoder: transformer
 decoder_conf:
-    attention_heads: 8
-    linear_units: 2048
-    num_blocks: 6
+    attention_heads: 4
+    linear_units: 1024
+    num_blocks: 3                # 3-layer decoder
     dropout_rate: 0.1
     positional_dropout_rate: 0.1
     self_attention_dropout_rate: 0.0
@@ -42,18 +42,18 @@ optim_conf:
     lr: 0.002
 scheduler: warmuplr
 scheduler_conf:
-    warmup_steps: 5000        # Higher for more data
+    warmup_steps: 500            # Fast warmup
 
 # SpecAug
 specaug: specaug
 specaug_conf:
-    apply_time_warp: false
+    apply_time_warp: false       # skip to reduce overhead
     apply_freq_mask: true
-    freq_mask_width_range: [0, 30]
-    num_freq_mask: 2
+    freq_mask_width_range: [0, 15]
+    num_freq_mask: 1
     apply_time_mask: true
-    time_mask_width_range: [0, 40]
-    num_time_mask: 2
+    time_mask_width_range: [0, 20]
+    num_time_mask: 1
 
 # Mixed precision
 use_amp: true
@@ -61,8 +61,4 @@ use_amp: true
 # Best model selection
 best_model_criterion:
   - [valid, acc, max]
-keep_nbest_models: 10
-
-# DDP
-ngpu: 8
-num_workers: 4
+keep_nbest_models: 3

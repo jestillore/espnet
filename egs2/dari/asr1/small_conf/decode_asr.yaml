@@ -1,0 +1,8 @@
+beam_size: 10         # 60 is overkill for <1k utterances; 10 is typically sufficient
+ctc_weight: 0.3       # Keep as is for hybrid CTC/attention decoding
+lm_weight: 0.6        # Works well with trained LM
+
+maxlenratio: 0.0
+minlenratio: 0.0
+lm_usage: true
+nbest: 1              # You only need the best hypothesis
