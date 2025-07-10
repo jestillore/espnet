@@ -10,6 +10,8 @@ set -eou pipefail
     --lm_config conf/train_lm.yaml \
     --train_set train \
     --valid_set valid \
-    --test_sets "test" \
+    --test_sets test \
+    --dumpdir /app/dumps \
+    --expdir /app/experiments \
     --nbpe 2000 \
     --lm_train_text "data/train/text" "$@"
