@@ -30,6 +30,3 @@ keep_nbest_models: 5
 # DDP
 ngpu: 8
 num_workers: 4
-
-# Enable DistributedDataParallel
-use_ddp: true
